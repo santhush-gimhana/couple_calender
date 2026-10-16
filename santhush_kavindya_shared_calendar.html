@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f6f7fb">
+<title>Santhush & Kavindya — Our Calendar</title>
+<style>
+/* ===== Palette: Santhush = midnight indigo, Kavindya = sage green, Together = rose, Holidays = honey gold ===== */
+:root{
+--bg:#f6f7fb;--paper:#fff;--ink:#27243f;--muted:#7c7891;--line:#e7e5f1;
+--san:#4b43a6;--san2:#eeedfb;--san-ink:#3b3392;--san-soft:#b9b4e8;
+--kav:#3e8c68;--kav2:#e6f4ec;--kav-ink:#2b6a4c;--kav-soft:#a9d6bf;
+--rose:#d46c8a;--rose2:#fdebf1;--rose-ink:#a2425e;
+--gold:#c08a35;--gold2:#fdf3e0;--gold-ink:#87601f;
+--both:linear-gradient(120deg,#4b43a6 0%,#5d58b0 35%,#3e8c68 100%);
+--shadow:0 14px 38px #2e295e12}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at 8% 0%,#e8e6fb 0,transparent 38%),radial-gradient(circle at 95% 15%,#e2f3e9 0,transparent 36%),radial-gradient(circle at 50% 100%,#fbe8ef 0,transparent 45%),var(--bg);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.wrap{max-width:1180px;margin:auto;padding:22px 18px 44px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}.brand{display:flex;align-items:center;gap:11px}.logo{width:46px;height:46px;border-radius:16px;background:var(--both);color:#fff;display:grid;place-items:center;font-size:24px;box-shadow:0 8px 20px #4b43a62e}h1{font-family:Georgia,serif;font-size:clamp(24px,4vw,36px);font-weight:500;margin:0;letter-spacing:-.8px;color:var(--ink)}.subtitle{margin:4px 0 0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;color:var(--ink);font-weight:650;font-size:12px;transition:transform .15s,box-shadow .15s,background .15s}.btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px #2e295e14}.btn.primary{background:var(--both);color:white;border-color:transparent}.btn.primary:hover{box-shadow:0 8px 22px #4b43a640}.btn.soft{background:var(--rose2);border-color:#f6d5df;color:var(--rose-ink)}.panel{background:#ffffffe0;border:1px solid var(--line);border-radius:20px;padding:18px;box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:14px;margin-bottom:16px}.eyebrow{text-transform:uppercase;letter-spacing:1.7px;font-size:10px;font-weight:800;color:var(--rose);margin-bottom:7px}.hero h2{font-family:Georgia,serif;font-weight:500;font-size:24px;line-height:1.2;margin:0 0 8px}.hero p{color:var(--muted);font-size:12px;line-height:1.6;margin:0}.people{display:flex;gap:9px;margin-top:15px}.person{flex:1;border-radius:13px;padding:10px 10px 10px 12px;background:var(--san2);color:var(--san-ink);border-left:4px solid var(--san);font-size:12px;font-weight:750}.person.her{background:var(--kav2);color:var(--kav-ink);border-left-color:var(--kav)}.person small{display:block;color:var(--muted);font-weight:400;font-size:10px;margin-top:3px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--san);margin-right:6px}.her .dot{background:var(--kav)}.stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px;border-top:3px solid var(--san-soft)}.stat:nth-child(2){border-top-color:#f1b6c7}.stat:nth-child(3){border-top-color:#ead2a6}.stat:nth-child(4){border-top-color:var(--kav-soft)}.stat .num{font-family:Georgia,serif;font-size:27px;color:var(--ink)}.stat .label{font-size:10px;color:var(--muted);margin-top:2px}.layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(285px,.8fr);gap:15px;align-items:start}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:9px;flex-wrap:wrap;margin-bottom:15px}.monthline{display:flex;align-items:center;gap:9px}.monthline h2{font-family:Georgia,serif;font-weight:500;font-size:24px;margin:0}.arrows{display:flex;gap:5px}.iconbtn{width:32px;height:32px;border:1px solid var(--line);border-radius:9px;background:white;color:var(--san);font-size:18px}.iconbtn:hover{background:var(--san2)}.calendar-actions{display:flex;gap:6px}.select{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px;font-size:11px;color:var(--ink);max-width:130px}
+.weekdays,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}.weekdays div{text-align:center;color:var(--muted);font-size:9px;font-weight:800;padding:7px 0}.weekdays div:nth-child(n+6){color:var(--rose)}.day{min-height:83px;border:1px solid #ebe9f3;background:#fff;border-radius:10px;padding:6px 5px;text-align:left;position:relative;overflow:hidden;color:var(--ink);transition:border-color .15s,box-shadow .15s}.day:hover{border-color:var(--san-soft);box-shadow:0 4px 12px #4b43a614}.day.empty{background:transparent;border-color:transparent;pointer-events:none}.day.today{outline:2px solid var(--rose);outline-offset:-2px}.day.selected{background:linear-gradient(160deg,#f1f0fc,#eef7f2);border-color:var(--san-soft)}.day .date{font-size:11px;font-weight:800;display:flex;justify-content:space-between;align-items:center}.today-badge{color:var(--rose);font-size:7px;letter-spacing:.5px}.holiday{font-size:8px;line-height:1.15;color:var(--gold-ink);margin-top:4px;display:block}.event-chip{font-size:8px;line-height:1.2;padding:3px 3px 3px 4px;border-radius:5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;background:var(--san2);color:var(--san-ink);border-left:2px solid var(--san)}.event-chip.her{background:var(--kav2);color:var(--kav-ink);border-left-color:var(--kav)}.event-chip.shared{background:var(--rose2);color:var(--rose-ink);border-left-color:var(--rose)}.event-chip.work{background:#e3e1f7;color:var(--san-ink);border-left-color:var(--san-ink)}.more{font-size:8px;color:var(--muted);margin-top:3px}.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:13px;color:var(--muted);font-size:10px}.legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px}.legend .l-san{background:var(--san)}.legend .l-kav{background:var(--kav)}.legend .l-both{background:var(--rose)}.legend .l-hol{background:var(--gold)}.side{display:flex;flex-direction:column;gap:13px}.side h3{font-size:14px;margin:0 0 11px;color:var(--ink)}.date-title{font-family:Georgia,serif;font-size:22px;margin:0 0 4px}.date-sub{font-size:11px;color:var(--muted);margin-bottom:13px}.event-list{display:flex;flex-direction:column;gap:8px}.event{border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff}.eventtop{display:flex;justify-content:space-between;gap:8px}.eventname{font-size:12px;font-weight:750;overflow-wrap:anywhere}.eventmeta{font-size:10px;color:var(--muted);margin-top:4px}.tag{font-size:8px;font-weight:800;border-radius:6px;padding:4px 5px;white-space:nowrap;height:max-content;background:var(--san2);color:var(--san-ink)}.tag.her{background:var(--kav2);color:var(--kav-ink)}.tag.shared{background:var(--rose2);color:var(--rose-ink)}.tag.work{background:#e3e1f7;color:var(--san-ink)}.eventnote{font-size:10px;color:var(--muted);margin-top:7px;white-space:pre-wrap}.eventcontrols{display:flex;justify-content:flex-end;gap:5px;margin-top:7px}.tiny{border:0;background:#f2f1f8;color:#5f5a78;border-radius:7px;padding:5px 7px;font-size:10px}.tiny:hover{background:var(--san2);color:var(--san-ink)}.emptymsg{text-align:center;padding:20px 8px;color:var(--muted);font-size:11px;line-height:1.5}.addform{display:grid;gap:9px}.field{display:grid;gap:4px}.field label{font-size:10px;font-weight:750;color:#69657f}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 10px;color:var(--ink);outline:none;font-size:12px}.field textarea{resize:vertical;min-height:55px}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--san-soft);box-shadow:0 0 0 3px #eceafb}.formrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.repeat-hint{font-size:10px;line-height:1.4;color:var(--san-ink);background:var(--san2);border-radius:8px;padding:7px 9px}.repeat-hint:empty{display:none}.repeat-hint.warn{color:var(--rose-ink);background:var(--rose2)}.formbuttons{display:flex;gap:7px}.formbuttons button{flex:1}.matchbox{background:linear-gradient(135deg,#efeefc,#fdeef3 50%,#e9f5ee);border:1px solid #e6e2f0;border-radius:14px;padding:12px}.matchbox strong{font-family:Georgia,serif;font-size:17px;font-weight:500;display:block;margin-bottom:5px}.matchbox p{font-size:10px;color:var(--muted);line-height:1.5;margin:0 0 9px}.match-list{display:flex;flex-wrap:wrap;gap:5px}.match-day{border:1px solid #f1cfd9;background:#fff;border-radius:8px;padding:7px 8px;font-size:10px;color:var(--rose-ink)}.match-day:hover{background:var(--rose2)}.nomatch{font-size:10px;color:var(--muted)}.footer{text-align:center;color:#9a96ad;font-size:10px;margin-top:20px;line-height:1.7}.login-screen{position:fixed;inset:0;background:radial-gradient(circle at 15% 10%,#e4e1fa 0,transparent 40%),radial-gradient(circle at 90% 85%,#dcf0e4 0,transparent 42%),radial-gradient(circle at 80% 10%,#fbe6ee 0,transparent 35%),var(--bg);z-index:20;display:grid;place-items:center;padding:18px}.login-card{width:min(390px,100%);background:#ffffffee;border:1px solid var(--line);border-radius:24px;padding:27px;box-shadow:0 22px 70px #2e295e1c;text-align:center}.login-logo{font-size:38px;margin-bottom:6px;background:var(--both);-webkit-background-clip:text;background-clip:text;color:transparent}.login-card h2{font-family:Georgia,serif;font-size:27px;font-weight:500;margin:0 0 7px}.login-card p{font-size:12px;color:var(--muted);line-height:1.5;margin:0 0 18px}.login-card .field{text-align:left;margin:10px 0}.login-card .btn{width:100%;margin-top:7px}.login-error{font-size:11px;color:var(--rose-ink);min-height:16px;margin-top:9px}.userbar{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px}.hidden{display:none!important}.toast{position:fixed;bottom:17px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 15px;border-radius:11px;font-size:11px;box-shadow:var(--shadow);display:none;z-index:30;max-width:90%;text-align:center}
+@media(max-width:820px){.hero{grid-template-columns:1fr}.layout{grid-template-columns:1fr}.day{min-height:73px;padding:5px 4px}.event-chip{font-size:8px}}
+@media(max-width:520px){.wrap{padding:14px 9px 30px}header{align-items:flex-start}.logo{width:39px;height:39px}.top-actions .btn{padding:8px;font-size:10px}h1{font-size:25px}.subtitle{max-width:220px;font-size:11px}.panel{padding:12px;border-radius:16px}.monthline h2{font-size:21px}.calendar-actions{width:100%;justify-content:space-between}.select{flex:1;max-width:none}.day{min-height:58px;border-radius:7px;padding:4px 3px}.weekdays,.days{gap:3px}.day .date{font-size:10px}.holiday{font-size:7px}.event-chip{font-size:7px;padding:2px;margin-top:3px}.more{font-size:7px}.weekdays div{font-size:8px}.people{gap:6px}.person{padding:9px}.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="loginScreen" class="login-screen">
+  <form class="login-card" id="loginForm">
+    <div class="login-logo">♡</div>
+    <h2>Our Little Calendar</h2>
+    <p>A shared space for Santhush & Kavindya.<br>Log in to add your plans and find a day for us.</p>
+    <div class="field"><label for="loginUser">Who’s signing in?</label><select id="loginUser"><option value="santhush">Santhush</option><option value="kavindya">Kavindya</option></select></div>
+    <div class="field"><label for="loginPassword">Password</label><input id="loginPassword" type="password" placeholder="Enter password" required autocomplete="current-password"></div>
+    <button class="btn primary" type="submit">Open our calendar ♡</button>
+    <div class="login-error" id="loginError"></div>
+    <p style="font-size:10px;margin:12px 0 0">A small private-feeling corner of the internet.</p>
+  </form>
+</div>
+<div class="wrap hidden" id="app">
+<header>
+  <div class="brand"><div class="logo">♡</div><div><h1>Our Year Together</h1><p class="subtitle">Santhush & Kavindya · Sri Lanka 2026</p></div></div>
+  <div class="top-actions"><span class="userbar" id="userBar"></span><button class="btn soft" id="logoutBtn">Log out</button></div>
+</header>
+<section class="hero">
+  <div class="panel"><div class="eyebrow">Two calendars, one little world</div><h2>Make time for the things<br>that matter most. ♡</h2><p>Add work, classes, busy days, and plans. Mark days when you're free and find a date that works for both of you.</p>
+    <div class="people"><div class="person"><i class="dot"></i>Santhush<small>His plans · midnight indigo</small></div><div class="person her"><i class="dot"></i>Kavindya<small>Her plans · sage green</small></div></div>
+  </div>
+  <div class="stats"><div class="stat"><div class="num" id="eventCount">0</div><div class="label">Plans on the calendar</div></div><div class="stat"><div class="num" id="matchCount">0</div><div class="label">Possible days out</div></div><div class="stat"><div class="num" id="holidayCount">0</div><div class="label">Upcoming Poya / holidays</div></div><div class="stat"><div class="num" id="daysLeft">—</div><div class="label">Days left in 2026</div></div></div>
+</section>
+<div class="layout">
+<main class="panel">
+ <div class="calendar-head"><div class="monthline"><div class="arrows"><button class="iconbtn" id="prev" aria-label="Previous month">‹</button><button class="iconbtn" id="next" aria-label="Next month">›</button></div><h2 id="monthTitle">October 2026</h2></div><div class="calendar-actions"><button class="btn" id="todayBtn">Today</button><select class="select" id="monthSelect" aria-label="Choose month"></select></div></div>
+ <div class="weekdays"><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div><div>SUN</div></div><div class="days" id="days"></div>
+ <div class="legend"><span><i class="l-san"></i>Santhush</span><span><i class="l-kav"></i>Kavindya</span><span><i class="l-both"></i>Together</span><span><i class="l-hol"></i>Poya / public holiday</span></div>
+</main>
+<aside class="side">
+ <section class="panel"><div class="date-title" id="selectedTitle">Select a day</div><div class="date-sub" id="selectedSubtitle">Tap any date to see plans or add something.</div><div id="dayEvents" class="event-list"></div></section>
+ <section class="panel"><h3 id="formTitle">＋ Add a plan</h3><form class="addform" id="eventForm">
+  <div class="field"><label for="eventName">What’s happening?</label><input id="eventName" maxlength="90" placeholder="Work, lecture, lunch, day out…" required></div>
+  <div class="formrow"><div class="field"><label for="eventDate">Date</label><input id="eventDate" type="date" min="2026-01-01" max="2026-12-31" required></div><div class="field"><label for="eventPerson">Whose plan?</label><select id="eventPerson"><option value="santhush">Santhush</option><option value="kavindya">Kavindya</option><option value="shared">Both of us</option></select></div></div>
+  <div class="formrow" id="repeatRow"><div class="field"><label for="eventEnd">Until (for several days)</label><input id="eventEnd" type="date" min="2026-01-01" max="2026-12-31"></div><div class="field"><label for="eventRepeat">Repeat on</label><select id="eventRepeat"><option value="daily">Every day</option><option value="weekdays">Weekdays (Mon–Fri)</option><option value="weekly">Same day each week</option></select></div></div>
+  <div class="repeat-hint" id="repeatHint"></div>
+  <div class="formrow"><div class="field"><label for="eventType">Type</label><select id="eventType"><option value="busy">Busy / work</option><option value="free">I'm free</option><option value="date">Day-out idea</option><option value="other">Other</option></select></div><div class="field"><label for="eventTime">Time (optional)</label><input id="eventTime" type="time"></div></div>
+  <div class="field"><label for="eventNote">Notes (optional)</label><textarea id="eventNote" maxlength="350" placeholder="Place, details, or what we should remember…"></textarea></div>
+  <div class="formbuttons"><button class="btn primary" type="submit" id="saveBtn">Save plan ♡</button><button class="btn" type="button" id="cancelEdit" style="display:none">Cancel</button></div>
+ </form></section>
+ <section class="panel"><h3>♡ Find a day out</h3><div class="matchbox"><strong>When are we both free?</strong><p>Each of you add an “I'm free” entry for the same date. Matching dates appear here.</p><div class="match-list" id="matchList"></div></div></section>
+</aside></div>
+<div class="footer">Made for the two of you, wherever you are. ♡<br>Holiday dates are included as a helpful guide and should be checked against official announcements.</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* DEMO ONLY: passwords and calendar data are client-side. See note below. */
+const USERS={santhush:{password:"1234",name:"Santhush"},kavindya:{password:"1234",name:"Kavindya"}};
+const YEAR=2026;
+const holidays={
+"2026-01-03":"Duruthu Poya","2026-01-15":"Tamil Thai Pongal","2026-02-01":"Navam Poya","2026-02-04":"Independence Day","2026-02-15":"Maha Sivarathri",
+"2026-03-02":"Medin Poya","2026-03-21":"Id-Ul-Fitr","2026-04-01":"Bak Poya","2026-04-03":"Good Friday","2026-04-13":"Day before Sinhala & Tamil New Year","2026-04-14":"Sinhala & Tamil New Year",
+"2026-05-01":"Vesak Poya / May Day","2026-05-02":"Day after Vesak","2026-05-28":"Id-Ul-Alha","2026-05-30":"Adhi Poson Poya","2026-06-29":"Poson Poya","2026-07-29":"Esala Poya",
+"2026-08-26":"Milad-Un-Nabi","2026-08-27":"Nikini Poya","2026-09-26":"Binara Poya","2026-10-25":"Vap Poya","2026-11-08":"Deepavali","2026-11-24":"Ill Poya","2026-12-23":"Unduwap Poya","2026-12-25":"Christmas"
+};
+const $=id=>document.getElementById(id),pad=n=>String(n).padStart(2,"0"),iso=(y,m,d)=>`${y}-${pad(m+1)}-${pad(d)}`;
+const today=new Date();let viewMonth=today.getFullYear()===YEAR?today.getMonth():9;
+let selectedDate=today.getFullYear()===YEAR?iso(YEAR,today.getMonth(),today.getDate()):"2026-10-16";
+let currentUser=null,events=[],editingId=null;
+function loadEvents(){try{events=JSON.parse(localStorage.getItem("ourCoupleCalendar2026")||"[]")}catch{events=[]}}
+function saveEvents(){localStorage.setItem("ourCoupleCalendar2026",JSON.stringify(events))}
+function fmtDate(s,opts={weekday:"long",day:"numeric",month:"long"}){return new Date(s+"T12:00:00").toLocaleDateString("en-LK",opts)}
+function shortDate(s){return new Date(s+"T12:00:00").toLocaleDateString("en-LK",{day:"numeric",month:"short"})}
+function esc(s){return String(s||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function toast(s){$("toast").textContent=s;$("toast").style.display="block";setTimeout(()=>$("toast").style.display="none",2300)}
+function label(p){return p==="santhush"?"Santhush":p==="kavindya"?"Kavindya":"Both of us"}
+function cls(e){if(e.person==="kavindya")return "her";if(e.person==="shared")return "shared";if(e.type==="busy")return "work";return ""}
+function tag(e){return e.type==="free"?"FREE":e.type==="date"?"DAY OUT":e.person==="shared"?"TOGETHER":e.type==="busy"?"BUSY":"PLAN"}
+$("loginForm").addEventListener("submit",e=>{e.preventDefault();const u=$("loginUser").value,p=$("loginPassword").value;if(USERS[u]&&USERS[u].password===p){currentUser=u;$("loginError").textContent="";$("loginPassword").value="";$("loginScreen").classList.add("hidden");$("app").classList.remove("hidden");$("userBar").textContent="Signed in as "+USERS[u].name;loadEvents();renderAll()}else{$("loginError").textContent="That password doesn't look right. Try again."}});
+$("logoutBtn").onclick=()=>{currentUser=null;$("app").classList.add("hidden");$("loginScreen").classList.remove("hidden")};
+function renderCalendar(){
+ $("monthTitle").textContent=new Date(YEAR,viewMonth,1).toLocaleDateString("en-LK",{month:"long",year:"numeric"});$("monthSelect").value=String(viewMonth);
+ const offset=(new Date(YEAR,viewMonth,1).getDay()+6)%7,n=new Date(YEAR,viewMonth+1,0).getDate();let html="";
+ for(let i=0;i<offset;i++)html+='<div class="day empty"></div>';
+ for(let d=1;d<=n;d++){const date=iso(YEAR,viewMonth,d),isToday=today.getFullYear()===YEAR&&today.getMonth()===viewMonth&&today.getDate()===d;
+ const es=events.filter(e=>e.date===date).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+ html+=`<button class="day ${date===selectedDate?"selected":""} ${isToday?"today":""}" data-date="${date}" aria-label="${fmtDate(date)}"><span class="date">${d}${isToday?'<span class="today-badge">TODAY</span>':""}</span>${holidays[date]?`<span class="holiday">☼ ${esc(holidays[date])}</span>`:""}${es.slice(0,2).map(e=>`<span class="event-chip ${cls(e)}">${esc(e.title)}</span>`).join("")}${es.length>2?`<div class="more">+${es.length-2} more</div>`:""}</button>`}
+ $("days").innerHTML=html;$("days").querySelectorAll("[data-date]").forEach(b=>b.onclick=()=>{selectedDate=b.dataset.date;resetForm();renderAll()});
+}
+function renderSelected(){
+ $("selectedTitle").textContent=fmtDate(selectedDate);$("selectedSubtitle").textContent=holidays[selectedDate]||"Your plans for this day";
+ const list=events.filter(e=>e.date===selectedDate).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+ if(!list.length){$("dayEvents").innerHTML='<div class="emptymsg">Nothing planned yet.<br>A blank day could become a lovely memory. ♡</div>';return}
+ $("dayEvents").innerHTML=list.map(e=>`<div class="event"><div class="eventtop"><div><div class="eventname">${esc(e.title)}</div><div class="eventmeta">${label(e.person)}${e.time?" · "+esc(e.time):""}${seriesSize(e)>1?` · ↻ ${seriesSize(e)} days`:""}</div></div><span class="tag ${cls(e)}">${tag(e)}</span></div>${e.note?`<div class="eventnote">${esc(e.note)}</div>`:""}<div class="eventcontrols">${e.person===currentUser||e.person==="shared"?`<button class="tiny" data-edit="${e.id}">Edit</button><button class="tiny" data-delete="${e.id}">Delete</button>${seriesSize(e)>1?`<button class="tiny" data-delete-all="${e.groupId}">Delete all ${seriesSize(e)} days</button>`:""}`:""}</div></div>`).join("");
+ $("dayEvents").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>editEvent(b.dataset.edit));$("dayEvents").querySelectorAll("[data-delete]").forEach(b=>b.onclick=()=>deleteEvent(b.dataset.delete));$("dayEvents").querySelectorAll("[data-delete-all]").forEach(b=>b.onclick=()=>deleteSeries(b.dataset.deleteAll));
+}
+function matches(){const f=events.filter(e=>e.type==="free"),a=new Set(f.filter(e=>e.person==="santhush").map(e=>e.date)),b=new Set(f.filter(e=>e.person==="kavindya").map(e=>e.date));return [...a].filter(d=>b.has(d)&&d>=iso(YEAR,today.getMonth(),today.getDate())).sort()}
+function renderAll(){renderCalendar();renderSelected();$("eventCount").textContent=events.length;$("matchCount").textContent=matches().length;$("holidayCount").textContent=Object.keys(holidays).filter(d=>d>=iso(YEAR,today.getMonth(),today.getDate())).length;const end=new Date(YEAR,11,31),now=new Date(YEAR,today.getMonth(),today.getDate());$("daysLeft").textContent=today.getFullYear()>YEAR?"0":today.getFullYear()<YEAR?"365":Math.max(0,Math.ceil((end-now)/86400000)+1);
+ const ms=matches();$("matchList").innerHTML=ms.length?ms.slice(0,10).map(d=>`<button class="match-day" data-match="${d}">♡ ${shortDate(d)}</button>`).join(""):'<span class="nomatch">No matches yet — both add a free day.</span>';
+ $("matchList").querySelectorAll("[data-match]").forEach(b=>b.onclick=()=>{selectedDate=b.dataset.match;viewMonth=+selectedDate.slice(5,7)-1;resetForm();renderAll()})}
+function resetForm(){editingId=null;$("eventForm").reset();$("eventDate").value=selectedDate;$("eventPerson").value=currentUser||"santhush";$("formTitle").textContent="＋ Add a plan";$("saveBtn").textContent="Save plan ♡";$("cancelEdit").style.display="none";$("repeatRow").style.display="";updateRepeatHint()}
+/* ---- Several days at once ---- */
+function seriesSize(e){return e.groupId?events.filter(x=>x.groupId===e.groupId).length:1}
+function seriesDates(start,end,mode){
+ if(!end||end<=start)return [start];
+ const out=[],d=new Date(start+"T12:00:00"),stop=new Date(end+"T12:00:00"),firstDay=d.getDay();
+ while(d<=stop&&out.length<366){const wd=d.getDay();
+  if(mode==="daily"||(mode==="weekdays"&&wd>0&&wd<6)||(mode==="weekly"&&wd===firstDay))out.push(iso(d.getFullYear(),d.getMonth(),d.getDate()));
+  d.setDate(d.getDate()+1)}
+ return out}
+function updateRepeatHint(){const h=$("repeatHint"),s=$("eventDate").value,e=$("eventEnd").value;h.classList.remove("warn");$("eventEnd").min=s||"2026-01-01";
+ if(editingId||!s||!e){h.textContent="";return}
+ if(e<s){h.textContent="The “Until” date is before the start date.";h.classList.add("warn");return}
+ if(e===s){h.textContent="";return}
+ const n=seriesDates(s,e,$("eventRepeat").value).length;
+ if(!n){h.textContent="No days in that range match this repeat option.";h.classList.add("warn");return}
+ h.textContent=`♡ This plan will be added to ${n} day${n>1?"s":""} between ${shortDate(s)} and ${shortDate(e)}.`}
+["eventDate","eventEnd","eventRepeat"].forEach(id=>{$(id).addEventListener("input",updateRepeatHint);$(id).addEventListener("change",updateRepeatHint)});
+function deleteSeries(g){const list=events.filter(x=>x.groupId===g);if(!list.length)return;if(list[0].person!==currentUser&&list[0].person!=="shared")return toast("You can only delete your own plans.");if(!confirm(`Delete this plan from all ${list.length} days?`))return;events=events.filter(x=>x.groupId!==g);saveEvents();renderAll();toast(`Removed from ${list.length} days`)}
+function editEvent(id){const e=events.find(x=>x.id===id);if(!e)return;if(e.person!==currentUser&&e.person!=="shared")return toast("You can only edit your own plans.");editingId=id;$("eventName").value=e.title;$("eventDate").value=e.date;$("eventPerson").value=e.person;$("eventType").value=e.type;$("eventTime").value=e.time||"";$("eventNote").value=e.note||"";$("formTitle").textContent="✎ Edit your plan";$("saveBtn").textContent="Update plan";$("cancelEdit").style.display="block";$("repeatRow").style.display="none";$("repeatHint").textContent="";document.querySelector(".addform").scrollIntoView({behavior:"smooth",block:"center"})}
+function deleteEvent(id){const e=events.find(x=>x.id===id);if(!e||(e.person!==currentUser&&e.person!=="shared"))return toast("You can only delete your own plans.");if(!confirm("Delete this plan?"))return;events=events.filter(x=>x.id!==id);saveEvents();renderAll();toast("Plan deleted")}
+$("eventForm").addEventListener("submit",e=>{e.preventDefault();const person=$("eventPerson").value;if(person!=="shared"&&person!==currentUser)return toast("You can add plans only for your own calendar.");const data={id:editingId||("e"+Date.now()+Math.random().toString(16).slice(2,6)),title:$("eventName").value.trim(),date:$("eventDate").value,person,type:$("eventType").value,time:$("eventTime").value,note:$("eventNote").value.trim()};if(!data.title||!data.date)return;
+ let added=1;
+ if(editingId){const old=events.find(x=>x.id===editingId);if(old&&old.person!==currentUser&&old.person!=="shared")return toast("You can only edit your own plans.");if(old&&old.groupId)data.groupId=old.groupId;events=events.map(x=>x.id===editingId?data:x)}
+ else{const end=$("eventEnd").value;if(end&&end<data.date)return toast("The “Until” date is before the start date.");
+  const dates=seriesDates(data.date,end,$("eventRepeat").value);if(!dates.length)return toast("No days in that range match this repeat option.");
+  const gid=dates.length>1?"g"+data.id:null;
+  dates.forEach((d,i)=>events.push(gid?{...data,id:data.id+"_"+i,date:d,groupId:gid}:data));added=dates.length}
+ saveEvents();selectedDate=data.date;viewMonth=+data.date.slice(5,7)-1;resetForm();renderAll();toast(added>1?`Plan added to ${added} days ♡`:"Plan saved on this browser ♡")});
+$("cancelEdit").onclick=resetForm;$("prev").onclick=()=>{viewMonth=(viewMonth+11)%12;renderCalendar()};$("next").onclick=()=>{viewMonth=(viewMonth+1)%12;renderCalendar()};$("todayBtn").onclick=()=>{if(today.getFullYear()===YEAR){viewMonth=today.getMonth();selectedDate=iso(YEAR,today.getMonth(),today.getDate())}resetForm();renderAll()};
+for(let m=0;m<12;m++){const o=document.createElement("option");o.value=m;o.textContent=new Date(YEAR,m,1).toLocaleDateString("en-LK",{month:"long"});$("monthSelect").appendChild(o)}$("monthSelect").onchange=e=>{viewMonth=+e.target.value;renderCalendar()};
+resetForm();
+</script>
+</body>
+</html>
